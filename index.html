@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TP 25 — Espace de classe</title>
+  <meta name="description" content="TP 25, espace de travail partagé de la classe.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">◒</div>
+        <div>
+          <strong>TP 25</strong>
+          <span>Une classe, un espace.</span>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-item active" data-view="home">⌂ <span>Accueil</span></button>
+        <button class="nav-item" data-view="subjects">▤ <span>Mes matières</span></button>
+        <button class="nav-item" data-view="files">□ <span>Fichiers partagés</span></button>
+        <button class="nav-item" data-view="settings">⚙ <span>Paramètres</span></button>
+      </nav>
+
+      <div class="side-subjects">
+        <div class="side-title">Matières <button id="addSubjectSide" class="icon-btn">＋</button></div>
+        <div id="sideSubjectList"></div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button id="themeToggle" class="theme-toggle">☾ <span>Thème sombre</span></button>
+        <div class="profile">
+          <div class="avatar">T</div>
+          <div><strong>TP 25</strong><span>Classe</span></div>
+          <span class="chevron">⌄</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div></div>
+        <div class="top-actions">
+          <label class="search">
+            <span>⌕</span>
+            <input id="searchInput" placeholder="Rechercher un fichier, une matière, un chapitre...">
+          </label>
+          <button class="top-icon">♧</button>
+          <button class="user-dot">T</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="homeView" class="view active">
+          <div class="hero">
+            <div>
+              <h1>Bonjour à tous ! 👋</h1>
+              <p>Bienvenue sur TP 25, l’espace de travail de la classe.</p>
+              <p class="muted">Retrouve ici les documents, notes et ressources partagées par la classe.</p>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div>
+              <h2>◈ Mes matières</h2>
+              <p>Organise tes matières comme tu veux.</p>
+            </div>
+            <div class="head-actions">
+              <button id="customizeBtn" class="btn ghost">☷ Personnaliser</button>
+              <button id="addSubjectBtn" class="btn primary">＋ Ajouter une matière</button>
+            </div>
+          </div>
+
+          <div id="subjectsMain"></div>
+
+          <section class="projects">
+            <div class="section-head compact">
+              <div><h2>Projets</h2><p>Travaux et dossiers de groupe.</p></div>
+              <button id="addProjectBtn" class="btn ghost">＋ Ajouter un projet</button>
+            </div>
+            <div id="projectGrid" class="project-grid"></div>
+          </section>
+
+          <div class="common-box">
+            <div class="common-icon">♧</div>
+            <div><strong>Documents communs</strong><span>Retrouve ici les documents partagés pour toute la classe.</span></div>
+            <button data-view="files" class="arrow-btn">→</button>
+          </div>
+        </section>
+
+        <section id="subjectsView" class="view">
+          <div class="page-title">
+            <div><h1>Mes matières</h1><p>Crée, organise et personnalise ton espace.</p></div>
+            <button id="addSubjectBtn2" class="btn primary">＋ Ajouter une matière</button>
+          </div>
+          <div id="subjectsFull"></div>
+        </section>
+
+        <section id="filesView" class="view">
+          <div class="page-title">
+            <div><h1>Fichiers partagés</h1><p>Les ressources communes de TP 25.</p></div>
+            <label class="upload-btn btn primary">＋ Ajouter un fichier<input id="fileInput" type="file" multiple hidden></label>
+          </div>
+          <div id="fileList" class="file-list"></div>
+        </section>
+
+        <section id="settingsView" class="view">
+          <div class="page-title"><div><h1>Paramètres</h1><p>Personnalise l'apparence et le fonctionnement de TP 25.</p></div></div>
+          <div class="settings-card">
+            <h3>Couleurs</h3>
+            <p class="muted">Choisis une palette ou une couleur d’accent.</p>
+            <div id="paletteChoices" class="palette-row"></div>
+            <div class="custom-color">
+              <label>Couleur personnalisée</label>
+              <input id="accentPicker" type="color" value="#8fe3d2">
+            </div>
+          </div>
+          <div class="settings-card">
+            <h3>Organisation</h3>
+            <label class="switch-row"><span>Afficher les matières secondaires</span><input id="secondaryToggle" type="checkbox" checked></label>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <aside class="right-panel">
+      <section class="panel-card">
+        <div class="panel-title"><h3>◷ Fichiers récents</h3><button data-view="files">Voir tout →</button></div>
+        <div id="recentFiles"></div>
+      </section>
+      <section class="panel-card announcements">
+        <div class="panel-title"><h3>♢ Annonces</h3></div>
+        <div id="announcements"></div>
+      </section>
+    </aside>
+  </div>
+
+  <dialog id="subjectDialog">
+    <form method="dialog" class="modal">
+      <div class="modal-head"><h2 id="subjectDialogTitle">Ajouter une matière</h2><button class="close">×</button></div>
+      <input id="subjectId" type="hidden">
+      <label>Nom<input id="subjectName" required placeholder="Ex. Mathématiques"></label>
+      <label>Icône<input id="subjectIcon" maxlength="2" placeholder="📐"></label>
+      <label>Section
+        <select id="subjectGroup"><option value="main">Matières principales</option><option value="other">Autres matières</option></select>
+      </label>
+      <label>Couleur d'accent<input id="subjectColor" type="color" value="#72d8c2"></label>
+      <div class="modal-actions"><button class="btn ghost" value="cancel">Annuler</button><button id="saveSubject" class="btn primary" value="default">Enregistrer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="chapterDialog">
+    <form method="dialog" class="modal">
+      <div class="modal-head"><h2>Gérer les chapitres</h2><button class="close">×</button></div>
+      <input id="chapterSubjectId" type="hidden">
+      <div id="chapterList"></div>
+      <div class="inline-add"><input id="newChapter" placeholder="Nouveau chapitre"><button id="addChapter" class="btn primary">Ajouter</button></div>
+      <div class="modal-actions"><button class="btn primary" value="default">Fermer</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="projectDialog">
+    <form method="dialog" class="modal">
+      <div class="modal-head"><h2>Nouveau projet</h2><button class="close">×</button></div>
+      <label>Nom<input id="projectName" required placeholder="Ex. Présentation classe"></label>
+      <label>Description<input id="projectDesc" placeholder="Quelques mots..."></label>
+      <div class="modal-actions"><button class="btn ghost" value="cancel">Annuler</button><button id="saveProject" class="btn primary" value="default">Créer</button></div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
