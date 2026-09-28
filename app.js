@@ -1,6 +1,6 @@
 const supabaseClient = window.supabase.createClient(
   "https://icggrqkjkgcxpglqprqw.supabase.co",
-  "sb_publishable_..."
+  "sb_publishable__n_eLUpNCqXvOx86PoEm8Q_SKI9NheP"
 );
 KEY="tp25-state-v1";
 const defaultState={
