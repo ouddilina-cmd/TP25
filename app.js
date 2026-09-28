@@ -1,4 +1,8 @@
-const KEY="tp25-state-v1";
+const supabaseClient = window.supabase.createClient(
+  "https://icggrqkjkgcxpglqprqw.supabase.co",
+  "sb_publishable_..."
+);
+KEY="tp25-state-v1";
 const defaultState={
   accent:"#8fe3d2", secondary:true,
   subjects:[
